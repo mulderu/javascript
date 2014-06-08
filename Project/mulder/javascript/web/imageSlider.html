@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>image slider</title>
+
+    <link rel="stylesheet" href="../resources/css/ui-lightness/jquery-ui-1.10.4.css">
+	
+	<style>
+	body{
+		font: 62.5% "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	
+	
+	ul.mySlider,  ul.mySlider ul {
+	    list-style:none;
+	    margin:0;
+	    padding:0;
+	}
+	 
+	ul.mySlider  li {
+	    margin: 0 0 0 0;
+	    padding: 0 0 0 0;
+	    border : 0;
+	    float: left;
+	}
+
+
+	ul.mySlider  ul > li {
+        /* display: none; */
+    }
+    
+    ul.mySlider > li > ul > li > img { 
+        width: 95px; height: 95px; 
+        }
+        
+    .current { display: inline; }
+    
+    ul.mySlider li.slideThumb ul { border: 1px solid #CCC; padding 2px; }
+    
+    ul.mySlider li.slideThumb ul>li { border: 1px solid #BBB; padding 2px; }
+	
+	</style>
+</head>
+<body>
+
+<h1>My Image slider</h1>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Nunc tincidunt</a></li>
+    <li><a href="#tabs-2">Proin dolor</a></li>
+    <li><a href="#tabs-3">Aenean lacinia</a></li>
+  </ul>
+  <div id="tabs-1">
+    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+  </div>
+  <div id="tabs-2">
+    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+  </div>
+  <div id="tabs-3">
+    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+  </div>
+</div>
+
+<div>
+    <div class="imgBox"></div>
+    <div class="imgArray">
+    
+	    <ul class="mySlider">
+		    <li class="sliderNavi"><a href="#">LEFT</a></li>
+		    <li class="slideThumb" style="position: relative; width: 400px; height: 100px; overflow:hidden;">
+		        <ul class="thumbImages" style="position: absolute;">
+		        </ul>
+		    </li>
+		    <li class="sliderNavi"><a href="#">RIGHT</a></li>
+		
+		    
+		</ul>
+    
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</body>
+
+<script src="../resources/js/jquery-1.10.2.js"></script>
+<script src="../resources/js/jquery-ui-1.10.4.js"></script>
+    <script>
+	$.fn.mulderSlider = function(control){
+	    var element = $(this);
+		control = $(control);
+
+		element.delegate('li', 'click', function() {
+		    var imgName = $(this).attr('img-name');
+
+			element.trigger('change.slider', imgName);
+		});
+
+
+		element.bind('change.slider', function(e, imgName) {
+		    element.find('li').removeClass('current');
+			element.find('>[img-name="'+ imgName + '"]').addClass('current');
+		});
+
+		element.bind('change.slider', function(e, imgName) {
+		});
+
+	};
+    var imgSrcs = [
+                    "http://movie.phinf.naver.net/20111226_11/1324865119892hsRIG_JPEG/movie_image.jpg?type=m665_443_2",
+                    "http://movie.phinf.naver.net/20130419_161/1366341276904M9qna_JPEG/movie_image.jpg?type=m665_443_2",
+                    "http://movie.phinf.naver.net/20111223_121/1324649557158pTFcT_JPEG/movie_image.jpg?type=m665_443_2",
+                    "http://movie.phinf.naver.net/20140509_124/1399618182864GRfpX_JPEG/movie_image.jpg?type=m665_443_2",
+                    "http://movie.phinf.naver.net/20140530_129/1401457506187pP1GB_JPEG/movie_image.jpg?type=m665_443_2",
+                    "http://movie.phinf.naver.net/20130417_3/13661649312565EEwE_JPEG/movie_image.jpg?type=m665_443_2",
+                    "http://movie.phinf.naver.net/20131213_270/1386897365736bhArw_JPEG/movie_image.jpg?type=m665_443_2"
+                   ];
+    			
+	$(document).ready(function() {
+
+
+        $( "#tabs" ).tabs();
+
+        $(imgSrcs).each(function(i,v) {
+		     $('ul.thumbImages').append ('<li><img src="' + v + '" /></li>');
+		});
+
+	});
+    </script>
+    
+</html>
