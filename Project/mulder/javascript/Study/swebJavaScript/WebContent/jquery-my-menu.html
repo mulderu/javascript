@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>AromaSoft Web Study Example , jQuery Introduction</title>
+
+<link rel="stylesheet" href="./resources/jqueryui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
+<script src="./resources/jqueryui/js/jquery-1.9.1.js"></script>
+<script src="./resources/jqueryui/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<style type="text/css">
+ 
+ 
+ div#btnArea > div {  
+     float: left; width: 100px; 
+     margin: 5px; padding: 2px; 
+     border: 1px solid #888;
+     background-color: #333;
+     color: #AAA;
+     font-family: "Arial black";
+     font-style: normal;
+     font-weight: bold;
+     font-size: 1.2em; 
+     text-align: center;
+     cursor: pointer;
+     }
+
+ div#btnArea > div:hover {  
+     color: #FFF;
+     }
+     
+#menu, #menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+#menu li {
+  cursor: pointer;
+  background: #94C5EB;
+  border-bottom: 1px solid #444;
+}
+#menu li a { text-decoration: none; }
+#menu > li > a {
+  padding: 2px 10px;
+  font-weight: bold;
+}
+#menu li li {
+  cursor: auto;
+  border: 0;
+  padding: 0 14px;
+  background-color: #fff;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="main">
+
+
+<ul id="menu">
+  <li><a href="#">What's new?</a>
+    <ul class="active">
+      <li><a href="#">Weekly specials</a></li>
+      <li><a href="#">Last night's pics!</a></li>
+      <li><a href="#">Users' comments</a></li>
+    </ul> 
+  </li>
+  <li><a href="#">Member extras</a>
+    <ul>
+      <li><a href="#">Premium Celebrities</a></li> 
+      <li><a href="#">24-hour Surveillance</a></li>
+    </ul>
+  </li>
+</ul>
+
+
+
+</div> <!-- /div#main -->
+ 
+
+<hr/>
+
+<div id="btnArea">
+  <div>Test1</div>
+  <div>Test2</div>
+  <div>Test3</div>
+  <div>Test4</div>
+  <div>Test5</div>
+  <div>Test6</div>
+  <div>Test7</div>
+
+</div>
+<div style="clear: both"></div>
+
+<div id="btnArea">
+  <div>Test8</div>
+  <div>Test9</div>
+  <div>Test10</div>
+  <div>Test11</div>
+  <div>Test12</div>
+  <div>Test13</div>
+  <div>Test14</div>
+
+</div>
+<div style="clear: both"></div>
+
+ <p>aaaaaaaaaa</p>
+ <p>bbbbb</p>
+ <p>cccc</p>
+ <p>dddd</p>
+
+<script>
+
+var controller = {
+    action : {
+    	Test1 : function(This) {
+    		console.log ('Test1 Fire');
+    		$('#menu > li > ul')
+    		  .hide()
+    		  .click(function(e) {
+    		    e.stopPropagation();
+    		});
+    	},
+    	Test2 : function(This) {
+    		console.log ('Test2 Fire');
+    		$('#menu > li').toggle(function() {
+    			  $(this).find('ul').slideDown();
+    			}, function() {
+    			  $(this).find('ul').slideUp();
+    			});
+    	},
+        Test3 : function(This) {
+            console.log ('Test3 Fire');
+            $(
+            		$('p').filter(function(index) {
+            	      return index > 1;
+            	    })
+            	  ).css('background-color', 'red')
+            
+            //console.log ('x:'+ x)
+            
+            
+        },
+        Test4 : function(This) {
+            console.log ('Test4 Fire');
+            $('ul#ul1 li:even').addClass('zebra');
+        },
+        Test5 : function(This) {
+            console.log ('Test5 Fire');
+            $('ul#ul1 li:even').removeClass('zebra');
+        },
+        Test6 : function(This) {
+            console.log ('Test6 Fire');
+            $('ul#ul1 li').hide();
+        },
+        Test7 : function(This) {
+            console.log ('Test7 Fire');
+            $('ul#ul1 li').show('slow');
+        },
+        Test8 : function(This) {
+            console.log ('Test8 Fire');
+            $('ul#ul1').append ('<li>Append To New LI</h1>');
+        },
+        Test9 : function(This) {
+            console.log ('Test9 Fire');
+            $('ul#ul1').prepend ('<li>Prepend To New LI</h1>');
+        }
+        ,
+        Test10 : function(This) {
+            console.log ('Test10 Fire');
+            $('ul#ul1 li:eq(2)').after ('<li>li:eq(3) after To New LI</h1>');
+        },
+        Test11 : function(This) {
+            console.log ('Test11 Fire');
+            $('ul#ul1 li:eq(2)').remove();
+        },
+        Test12 : function(This) {
+            console.log ('Test12 Fire');
+            $('ul#ul1').hide().slideDown('slow').fadeOut();
+            
+        },
+        Test13 : function(This) {
+            console.log ('Test13 Fire');
+            $('div#myBox').animate(
+                    {'backgroundColor':'#0000ff'}  ,
+                    2000 ,
+                    function() { 
+                        $('div#myBox').animate({'margin-left':'50%'}, 1000);
+                    }       
+            );
+        },
+        Test14 : function(This) {
+            console.log ('Test14 Fire');
+            
+             
+        }
+        
+    }
+};
+
+$(document).ready(function() {
+
+	$('div#btnArea > div').click(function() {
+		controller.action[$(this).html()](this);
+	});
+
+});
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>AromaSoft Web Study Example , jQuery Introduction</title>
+
+<link rel="stylesheet" href="./resources/jqueryui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
+<script src="./resources/jqueryui/js/jquery-1.9.1.js"></script>
+<script src="./resources/jqueryui/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+</head>
+<body>
+
+<div>Hi Mulder, jQuery Introduction</div>
+
+
+<script type="text/javascript">
+
+(function(x) { console.log (x); })(1);
+
+(function() {
+    console.log ('anonymouse function1 exe !')
+})();
+
+console.log ('Script First !');
+
+$(document).ready(function() {
+	console.log ('document Ready !');
+});
+
+(function() {
+	console.log ('anonymouse function2 exe !')
+})();
+
+
+</script>
+
+</body>
+</html>

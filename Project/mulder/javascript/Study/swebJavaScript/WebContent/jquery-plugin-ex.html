@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>AromaSoft Web Study Example , jQuery plugin</title>
+
+<link rel="stylesheet" href="./resources/jqueryui/css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
+<script src="./resources/jqueryui/js/jquery-1.9.1.js"></script>
+<script src="./resources/jqueryui/js/jquery-ui-1.10.3.custom.min.js"></script>
+
+<style type="text/css">
+ 
+
+      
+</style>
+
+</head>
+<body>
+
+ <div class="myBox">
+ Hi Mulder
+ </div>
+ <div class="myBox">
+ Hi Aromasoft
+ </div>
+
+ 
+ 
+
+ 
+<script>
+
+(function($) {
+    $.fn.simpleBox = function(opt) {
+
+        var def = {
+               color: 'red'
+             , width: '100px'
+             , border: '1px solid blue'
+        };
+
+        var o = $.extend(def, opt || {});
+
+        return this.each(function(idx, v) {
+        	console.log ($(v).html())
+        	$(v).css(o);
+        });
+  };
+})(jQuery);
+
+
+$(document).ready(function() {
+	
+      $('.myBox').simpleBox({color: 'black'}).first().css({color:'yellow', width: '200px'});
+});
+
+
+</script>
+
+</body>
+</html>

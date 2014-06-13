@@ -55,15 +55,24 @@
 }
 
 #tabs  { 
-    width: 500px;
+    /* 
+	width: 100%;
+	*/
 	}
+#tabs li { 
+	margin: 0; padding: 0;
+}
+#tabs li a { 
+	margin: 2px; padding: 2px;
+}
 #tabs li img { 
     width: 50px; 
 	height: 50px;
+	margin: 0; padding: 0;
 }
 
 #tabs div { 
-	max-width: 500px;
+	max-width: 1100px;
 	overflow: scroll;
 }
 
@@ -75,6 +84,18 @@
 
 
 	/*---------------------*/
+
+.naverIcons { background:url(http://static.news.naver.net/image/news/2014/01/sp_news_gallery.png) no-repeat -999px -999px}
+
+.photo_viewer_wrap .ico{position:absolute;top:30px;display:block;width:92px;height:132px;overflow:hidden;line-height:777px}
+.photo_viewer_wrap .btn_prev{left:-20px}
+.photo_viewer_wrap .btn_next{right:-20px}
+.photo_viewer_wrap .btn_prev .ico{left:54px;background-position:-80px -167px}
+.photo_viewer_wrap .btn_next .ico{right:54px;background-position:-176px -167px}
+.photo_viewer_wrap a.btn_prev:hover .ico{cursor:pointer;background-position:-80px -309px}
+.photo_viewer_wrap a.btn_next:hover .ico{cursor:pointer;background-position:-176px -309px}
+.photo_viewer_wrap span.btn_prev .ico{background-position:-80px -25px}
+.photo_viewer_wrap span.btn_next .ico{background-position:-176px -25px}
 	
 	</style>
 </head>
@@ -82,7 +103,16 @@
 
 <h1>My Image slider</h1>
 
-<div id="tabs" class="tabs-nohdr">
+<div id="tabs" class="myJQUiTab tabs-nohdr">
+    <ul>
+	    <li><img src="http://movie.phinf.naver.net/20130419_161/1366341276904M9qna_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20111226_11/1324865119892hsRIG_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20111223_121/1324649557158pTFcT_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20140509_124/1399618182864GRfpX_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20140530_129/1401457506187pP1GB_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20130417_3/13661649312565EEwE_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20131213_270/1386897365736bhArw_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	</ul>
 </div>
 
 
@@ -115,39 +145,57 @@
 
 	};
 
-    var imgSrcs = [
-                    "http://movie.phinf.naver.net/20111226_11/1324865119892hsRIG_JPEG/movie_image.jpg?type=m665_443_2",
-                    "http://movie.phinf.naver.net/20130419_161/1366341276904M9qna_JPEG/movie_image.jpg?type=m665_443_2",
-                    "http://movie.phinf.naver.net/20111223_121/1324649557158pTFcT_JPEG/movie_image.jpg?type=m665_443_2",
-                    "http://movie.phinf.naver.net/20140509_124/1399618182864GRfpX_JPEG/movie_image.jpg?type=m665_443_2",
-                    "http://movie.phinf.naver.net/20140530_129/1401457506187pP1GB_JPEG/movie_image.jpg?type=m665_443_2",
-                    "http://movie.phinf.naver.net/20130417_3/13661649312565EEwE_JPEG/movie_image.jpg?type=m665_443_2",
-                    "http://movie.phinf.naver.net/20131213_270/1386897365736bhArw_JPEG/movie_image.jpg?type=m665_443_2"
-                   ];
-    			
 	$(document).ready(function() {
-
         /* tab builder */
-        $( "#tabs" ).html('<ul/>');
-        $(imgSrcs).each(function(i,v) {
+		var _imgArray = [];
+		$('#tabs img').each(function(i,v) {
+		     _imgArray.push (v);
+		});
+
+        $("#tabs").html('<ul/>');
+        $('#tabs ul').append ('<li><a href="#tabs-00">&lt;</a></li>');
+        $('#tabs').append ('<div id="tabs-00"></div>');
+        $( _imgArray ).each(function(i,img) {
+		     var v = $(img).attr('src');
              $('#tabs ul').append ('<li><a href="#tabs-'+i+'"><img src="'+v+'"/></a></li>');
              $('#tabs').append ('<div id="tabs-'+i+'"><img src="'+v+'"/></div>');
 		});
+        $('#tabs ul').append ('<li><a href="#tabs-99">&gt;</a></li>');
+        $('#tabs').append ('<div id="tabs-99"></div>');
 
 
         $( "#tabs" ).tabs(
             {
+			    create: function (event, ui) {
+				   //ui.tab.css({'margin-left': '100px', 'width':'1000px', 'overflow':'auto'});
+				   //ui.tab.parents('ul').css({'width':'1500px', 'max-width':'500px', 'overflow':'scroll'});
+				   //ui.tab.parents('ul').find('>li').css({'float':'none'});
+		           // $('#tabs ul.ui-tabs-nav').css({'overflow', 'scroll').height(60);
+				},
                 activate : function(event, ui) {
-				    console.log ( ui.newTab.context );
+				    //console.log ( ui.newTab.parent().html() );
+
+                    var prev = ui.oldPanel.attr('id')==undefined ? -1 : ui.oldPanel.attr('id').split('-')[1];
+                    var next = ui.newPanel.attr('id')==undefined ? -1 : ui.newPanel.attr('id').split('-')[1];
+
+				    console.log (prev +'=>'+ next);
+
+					var imgBefore  = prev == '00' ? null : _imgArray [ parseInt(prev) ];
+					var imgCurrent = next == '99' ? null : _imgArray [ parseInt(next) ];
+
+					ui.newPanel.empty();
+
+					var _div = $('<div class="imgCont"/>');
+
+					if (imgBefore)  _div.append($(imgBefore).css ({  }));
+					if (imgCurrent) _div.append($(imgCurrent).css({  }));
+
+					if (imgCurrent) ui.newPanel.append (_div);
                 } 
-				, fx: { 
-				    height: 'toggle', opacity: 'toggle' 
-				}
             }
 		);
 
 
-		$('#tabs ul.ui-tabs-nav').css('overflow', 'hidden').height(60);
 
 
         

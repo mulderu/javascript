@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>AromaSoft Web Study, Javascript OOP Introduction</title>
+</head>
+<body>
+
+<div>Hi Mulder, OOP Introduction</div>
+
+<script>
+
+// Class
+function Person(gender) {
+  this.gender = gender;
+  
+  this.sayHi=function(){
+	  return this.name +" Says Hi";
+  }
+  
+  console.log('Person instantiated:' + this.gender);
+}
+
+var person1 = new Person('Male');
+var person2 = new Person('Female');
+
+
+//person1.sayHello();	// Fail
+
+Person.prototype.sayHello = function () { 
+	console.log ('hello:' + this.gender); 
+	};
+	
+Person.prototype.sayGender = function () {
+	console.log('sayGender:' + this.gender);
+	};
+	
+person1.sayHello();	
+person2.sayHello();	
+
+// Static
+Person.sayGood = function() { 
+	// console.log ("good-Static " + this.sayHi()); // Fail
+	console.log ("good-Static"); 
+};
+
+
+//person1.sayGood(); // Fail
+
+Person.sayGood();
+
+
+// Inheritance
+function Student(gender, grade){
+	this.parent.constructor.call(this, gender);
+	this.grade = grade;
+	
+	this.sayGrade = function() { 
+		console.log ('Student instantiated:'+this.grade + ', '+this.gender ); 
+	}
+}
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+Student.prototype.parent = Person.prototype;
+Student.prototype.sayHello = function () {  // method overriding
+    console.log ('Student=> hello:' + this.gender); 
+};
+
+var stobj = new Student("BiSexual", "10'th");
+
+stobj.sayGrade();
+stobj.sayHello();
+person1.sayHello();
+
+
+var genderTeller = person1.sayGender;
+
+person1.sayGender(); // alerts 'Male'
+genderTeller(); // alerts undefined,,,, this !!! is important
+console.log(genderTeller === person1.sayGender); // alerts true
+console.log(genderTeller === Person.prototype.sayGender); // alerts true
+
+
+</script>
+
+</body>
+</html>
