@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>image slider simple edition</title>
+
+    <link rel="stylesheet" href="./resources/jqueryui/css/dark-hive/jquery-ui-1.10.3.custom.css">
+	
+	
+    <script src="./resources/jqueryui/js/jquery-1.9.1.js"></script>
+    <script src="./resources/jqueryui/js/jquery-ui-1.10.3.custom.js"></script>
+
+	<style>
+	
+	    /** bootstrap like row style */
+		.row:before,.row:after {
+		    display: table;
+		    content: " ";
+		}
+		
+		.row:after {
+		    clear: both;
+		}
+		
+		.row {
+		    width: 100%;
+		}
+		
+		.row > div {
+		    float: left;
+		    width: 10%;
+		}
+		
+		
+		/** mySlider plugin css */
+		.imgThumbContainer .imgThumbContainer
+	    {
+	        position: relative;
+	        overflow: hidden;
+	    }
+		.imgThumbContainer .imgThumbContainer .imgThumb
+	    {
+	         position: relative;
+	        overflow: hidden;
+	    }
+	    
+	    .imgThumbContainer .imgThumb > div {
+	     padding: 2px;
+	    }
+	    
+		.imgThumbContainer .imgThumb img
+	    {
+	        width: 200px; height: 200px;
+	        border: 1px solid gray;
+	    }
+		.imgThumbContainer .naviIcon
+		{
+		    width: 100px; height: 200px;
+		    font-size: 4em; line-height: 200px;
+		}
+		
+		a { text-decoration:none; }
+		a:hover {text-decoration:none; }
+		
+		.mySlideLightBox {
+		    position: fixed;
+		    width: 500px; height: 800px;
+		    top: 50px;
+		    z-index: 999;
+		}
+	
+	 
+	</style>
+<script>
+
+(function($) {
+	
+	var methods = {
+			
+		options:null,
+           init: function(o) {
+               options = o = $.extend({
+                    imgWidth: '200px',
+                    imgHeight: '200px',
+                    created: function(e) {}
+               }, o || {});
+               
+               updateUI = function(lever) {
+                   
+               }
+               
+               if ($('div.mySlideLightBox').size() == 0) {
+               	 $('body').append($('<div class="mySlideLightBox"><img/></div>'));
+               }
+               
+               return this.each(function(index) {
+                   var _slider = this;
+                   var imagesHTML = $(_slider).html();
+                   
+                   $(_slider).empty();
+                   $(_slider).addClass('row').addClass('imgThumbContainer');
+                   
+                   $(_slider).append('<div class="naviIcon sliderNaviLeft" style="width: 10%;"><a href="#"><span class="ico">&lt;</span></a></div>');
+                   $(_slider).append('<div class="imgThumbContainer" style="width: 80%;"><div class="row imgThumb">'+imagesHTML+'</div></div>');
+                   $(_slider).append('<div class="naviIcon sliderNaviRight" style="width:10%;"><a href="#"><span class="ico">&gt;</span></a></div>');
+                   
+                   $(_slider).find('div.imgThumb img').css({width: options.imgWidth, height: options.imgHeight, });
+                   
+                   $(_slider).find('div.sliderNaviLeft a').click(function(e) {
+                       e.preventDefault();
+                       $(this).parents('.imgThumbContainer').myImageSlider('toLeft');
+                   });
+                   $(_slider).find('div.sliderNaviRight a').click(function(e) {
+                       e.preventDefault();
+                       $(this).parents('.imgThumbContainer').myImageSlider('toRight');
+                   });
+                   $(_slider).find('div.imgThumb a').click(function(e) {
+                       e.preventDefault();
+                       methods.showImage($(this).find('img'));
+                   });
+                   
+                   if (options.created) options.created(this); 
+                   
+               });
+          },
+          
+          showImage : function(img) {
+              var t = $('div.mySlideLightBox').first();
+              
+              $(t).css('left', (($(document).width()/2)-$(img).width()) + 'px');
+              $(t).find('img').attr('src', $(img).attr('src'));
+              
+              $(t).show();
+              $(t).click(function() { $(this).hide(); });
+          },
+          
+          getCssLeft : function(e) {
+              var p = $(e).css ('left');
+              
+              if(p == 'auto') {
+                  return 0;
+              }
+              else if(p.indexOf('px') != -1) {
+                  p = p.substring(0,p.indexOf('px'));
+              }
+              return parseInt(p);
+          },
+          
+          toLeft :  function(divThumb) {
+        	  var divThumb = $(this).find('div.imgThumb');
+              var thumbDivWidth = $(divThumb).find('div').width();
+              var nextLeft =  methods.getCssLeft(divThumb) - thumbDivWidth;
+              
+              if (($(divThumb).width() + nextLeft)>thumbDivWidth) {
+                  $(divThumb).animate (
+                          {'left': nextLeft +'px'}
+                          , 500
+                          , function() {
+                                      
+                          });
+              }
+          },
+          
+          toRight : function(divThumb) {
+        	  var divThumb = $(this).find('div.imgThumb');
+              var thumbDivWidth = $(divThumb).find('div').width();
+              var nextRight =  methods.getCssLeft(divThumb) + thumbDivWidth;
+              
+              if (($(divThumb).width() - nextRight)>thumbDivWidth) {
+                  $(divThumb).animate (
+                          {'left': nextRight +'px'}
+                          , 500
+                          , function() {
+                                      
+                          });
+                  
+              }
+              
+          }
+			
+	};
+	
+	$.fn.myImageSlider = function(methodOrOptions) {
+        if ( methods[methodOrOptions] ) {
+            return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
+            // Default to "init"
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.fn.myImageSlider' );
+        }    
+    };
+    
+	 
+})(jQuery);
+  
+ 
+
+$(document).ready(function(){
+	$('div.myImgSlider').myImageSlider({
+		created: function(e) {
+			//console.log ('created:' + $(e).html());
+		}
+	});
+		
+});
+ 
+</script>
+</head>
+<body>
+
+<div class="myImgSlider">
+    <div style="width: 19%;"><a href="#"><img src="http://movie.phinf.naver.net/20130419_161/1366341276904M9qna_JPEG/movie_image.jpg?type=m665_443_2"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://movie.phinf.naver.net/20111226_11/1324865119892hsRIG_JPEG/movie_image.jpg?type=m665_443_2"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://movie.phinf.naver.net/20111223_121/1324649557158pTFcT_JPEG/movie_image.jpg?type=m665_443_2"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://movie.phinf.naver.net/20140509_124/1399618182864GRfpX_JPEG/movie_image.jpg?type=m665_443_2"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://movie.phinf.naver.net/20130417_3/13661649312565EEwE_JPEG/movie_image.jpg?type=m665_443_2"/></a></div>
+</div>
+ 
+ <hr/>
+ 
+
+<div class="myImgSlider">
+    <div style="width: 19%;"><a href="#"><img src="http://imgnews.naver.net/image/018/2014/06/11/PS14061100138_99_20140611112208.jpg"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://imgnews.naver.net/image/018/2014/06/11/PS14061100137_99_20140611112206.jpg"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://imgnews.naver.net/image/018/2014/06/10/PS14061000135_99_20140610095202.jpg"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://imgnews.naver.net/image/213/2014/06/07/20140607_1402108347_43386300_1_99_20140607113609.jpg"/></a></div>
+    <div style="width: 19%;"><a href="#"><img src="http://imgnews.naver.net/image/109/2014/06/06/201406060816775536_5390fbba9d9aa_99_20140606082302.jpg"/></a></div>
+</div>
+
+
+
+
+</body>
+
+ 
+ 
+</html>

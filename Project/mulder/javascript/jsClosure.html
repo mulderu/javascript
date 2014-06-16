@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>AromaSoft Web Study, Javascript Closure Introduction</title>
+</head>
+<body>
+
+<div>Hi Mulder, Closure Introduction</div>
+
+<ul>
+  <li>
+    <div><a href="http://blog.choyoungil.com/63">refer : Closure #1</a></div>
+  </li>
+  <li>
+    <div>
+	<pre>
+	무엇보다도 날 헷갈리게 했던건,,, 클로져에 대한 모두 다른 정의
+	
+	-다른 함수내에서 내부객체로 생성된 함수 리터럴을 반환하여 호출 프로그램에서 이를 변수로 배정한 것이다.
+	-클로저란 생성시 환경의 레퍼런스를 그대로 가지고 있는 것이다.
+	-실행될 코드와 이 함수가 실행될 유효범위의 조합이다.(O'Reilly JavaScirpt : The Definitive Guide 5/E)
+	
+	대 혼란.
+	
+	구글링을 수십개의 내용을 읽어 본 결과, 클로져라는 개념 자체가 복합적이기 때문에 특정한 정의를 내리기가 쉽지 않은 것으로 생각되지만 내 생각으로 가장 그 핵심을 표현하고 있는 구절은 Wikipedia article 의 첫 문장이다.
+	
+	a closure (also lexical closure, function closure or function value) is a function together with a referencing environment for the non-local variables of that function.[1] 
+	
+	클로져는 그 함수의 지역 변수가 아닌 것들을 위한 참조 환경을 함께 가지고 있는 함수(실행 코드) 이다. 
+	
+	</pre>
+	</div>
+  </li>
+</ul>
+
+
+
+
+
+<div><a href="https://developer.mozilla.org/ko/docs/JavaScript/Guide/Closures">
+  refer : Closure #2</a></div>
+
+<script>
+
+function makeAdder(x) {
+	  return function(y) {
+	    return x + y;
+	  };
+	}
+
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+
+console.log (add5(2));  // 7
+console.log (add10(2)); // 12
+
+
+
+var makeCounter = function() {
+	  var privateCounter = 0;
+	  function changeBy(val) {
+	    privateCounter += val;
+	  }
+	  return {
+	    increment: function() {
+	      changeBy(1);
+	    },
+	    decrement: function() {
+	      changeBy(-1);
+	    },
+	    value: function() {
+	      return privateCounter;
+	    }
+	  }  
+	};
+
+var Counter1 = makeCounter();
+var Counter2 = makeCounter();
+console.log (Counter1.value()); /* 0 */
+Counter1.increment();
+Counter1.increment();
+console.log (Counter1.value()); /* 2 */
+Counter1.decrement();
+console.log (Counter1.value()); /* 1 */
+console.log (Counter2.value()); /* 0 */
+	
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="us">
+<head>
+	<meta charset="utf-8">
+	<title>image slider with jQueryUI tabs</title>
+
+    <link rel="stylesheet" href="./resources/jqueryui/css/dark-hive/jquery-ui-1.10.3.custom.css">
+	
+	<style>
+
+	.tabs-nohdr { 
+	    padding: 0px; 
+	    background: none; 
+	    border-width: 0px; 
+	} 
+	.tabs-nohdr .ui-tabs-nav { 
+	    padding-left: 0px; 
+	    background: transparent; 
+	    border-width: 0px 0px 1px 0px; 
+	    -moz-border-radius: 0px; 
+	    -webkit-border-radius: 0px; 
+	    border-radius: 0px; 
+	} 
+	.tabs-nohdr .ui-tabs-panel { 
+	    border-width: 0px 1px 1px 1px; 
+	}
+	
+	 
+	.mulderTabSlider li { 
+		margin: 0; padding: 0;
+	}
+	.mulderTabSlider li a { 
+		margin: 2px; padding: 2px;
+	}
+	.mulderTabSlider li img { 
+	    width: 50px; 
+		height: 50px;
+		margin: 0; padding: 0;
+	}
+	
+	.mulderTabSlider div.imgCont
+	{
+	    width: 100%;
+	    height: 200px;
+	    margin-left: -200px;
+	}
+	
+	.mulderTabSlider div.imgCont img 
+	{
+	    float: left;
+	}
+
+ 
+</style>
+</head>
+<body>
+
+<h1>Game of thrones</h1>
+
+<div id="demoSlider01" class="mulderTabSlider tabs-nohdr">
+    <ul>
+	    <li><img src="http://movie.phinf.naver.net/20130419_161/1366341276904M9qna_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20111226_11/1324865119892hsRIG_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20111223_121/1324649557158pTFcT_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20140509_124/1399618182864GRfpX_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20140530_129/1401457506187pP1GB_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20130417_3/13661649312565EEwE_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	    <li><img src="http://movie.phinf.naver.net/20131213_270/1386897365736bhArw_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+	</ul>
+</div>
+
+
+<hr>
+<h1>황제를 위하여.</h1>
+
+
+<div id="demoSlider02" class="mulderTabSlider tabs-nohdr">
+    <ul>
+        <li><img src="http://movie.phinf.naver.net/20140530_118/1401415492565Aq2b6_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_293/1401415493090eliYl_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_160/14014154936651HwhC_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_216/140141549408734V9M_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_101/1401415494501kNncC_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140424_261/13983288373940CbOQ_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140424_123/1398314470753cbomn_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+    </ul>
+</div>
+
+<hr>
+<h1>황제를 위하여.2</h1>
+
+
+<div id="demoSlider02" class="mulderTabSlider tabs-nohdr">
+    <ul>
+        <li><img src="http://movie.phinf.naver.net/20140530_118/1401415492565Aq2b6_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_293/1401415493090eliYl_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_160/14014154936651HwhC_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_216/140141549408734V9M_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140530_101/1401415494501kNncC_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140424_261/13983288373940CbOQ_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+        <li><img src="http://movie.phinf.naver.net/20140424_123/1398314470753cbomn_JPEG/movie_image.jpg?type=m665_443_2"/></li>
+    </ul>
+</div>
+
+</body>
+
+<script src="./resources/jqueryui/js/jquery-1.9.1.js"></script>
+<script src="./resources/jqueryui/js/jquery-ui-1.10.3.custom.js"></script>
+
+
+<script>
+(function($) {
+    $.fn.mulderTabSlider = function(opt) {
+
+        var def = {
+             imgWidth: '200px',
+             imgHeight: '200px'
+        };
+
+        var o = $.extend(def, opt || {});
+
+        return this.each(function(index) {
+        	var _slider = this;
+        	var _imgArray = [];
+        	
+            $(_slider).find('img').each(function(i,v) {
+                 _imgArray.push (v);
+            });
+
+            $(_slider).html('<ul/>'); // panel clear and outer ul
+            $(_slider).find('ul').append ('<li><a href="#tabs-00">&lt;</a></li>'); // left arrow
+            $(_slider).append ('<div id="tabs-00"></div>');
+            
+            // add image thumb tab 
+            $( _imgArray ).each(function(i,img) {
+                 var v = $(img).attr('src');
+                 $(_slider).find('ul').append ('<li><a href="#tabs-'+i+'"><img src="'+v+'"/></a></li>');
+                 $(_slider).append ('<div id="tabs-'+i+'"></div>');
+            });
+            $(_slider).find('ul').append ('<li><a href="#tabs-99">&gt;</a></li>'); // right arrow
+            $(_slider).append ('<div id="tabs-99"></div>');
+
+
+            // jqueryui tabs process
+            $(_slider).tabs(
+                {
+                    create: function (event, ui) {
+                       ui.tab.parents('ul').find('>li').first().css({'height':'73px', 'line-height':'50px'});                    	
+                       ui.tab.parents('ul').find('>li').last().css({'height':'73px', 'line-height':'50px'});
+                       
+                       //ui.tab.css({'margin-left': '100px', 'width':'1000px', 'overflow':'auto'});
+                       //ui.tab.parents('ul').css({'width':'1500px', 'max-width':'500px', 'overflow':'scroll'});
+                       //ui.tab.parents('ul').find('>li').css({'float':'none'});
+                       // $('#tabs ul.ui-tabs-nav').css({'overflow', 'scroll').height(60);
+                    },
+                    activate : function(event, ui) {
+                        //var prev = ui.oldPanel.attr('id')==undefined ? -1 : ui.oldPanel.attr('id').split('-')[1];
+                        var prev = $(this).data('prev');
+                        var next = ui.newPanel.attr('id')==undefined ? -1 : ui.newPanel.attr('id').split('-')[1];
+
+                        if (next == '00') {
+                        	if (prev != undefined)
+                        	    $(this).tabs("option", "active", prev);
+                            return;
+                            
+                        } else if (next == '99') {
+                            // next
+                            if (prev != undefined) {
+	                            $(this).data('prev', prev);
+	                        	$(this).tabs("option", "active", prev+1);
+                            }
+                            return;
+                        }
+                        //console.log (prev +'=>'+ next);
+                        
+                        var imgBefore  = prev == '00' ? null : _imgArray [ parseInt(prev) ];
+                        var imgCurrent = next == '99' ? null : _imgArray [ parseInt(next) ];
+                        
+
+                        ui.newPanel.empty();
+                        ui.newPanel.css('height', o.imgHeight);
+                        
+                        $(this).data('prev', next);
+                        ui.newPanel.append('<div class="outer"/>');
+                        ui.newPanel.find('div.outer').css({
+                        	'overflow': 'hidden', 'width':o.imgWidth, 'height':o.imgHeight,
+                        	'margin-left':'auto', 'margin-right':'auto', 'text-align':'center'
+                        	});
+
+                        var _div = $('<div class="imgCont"/>');
+
+                        if (imgCurrent) _div.append($(imgCurrent));
+                        if (imgBefore)  _div.append($(imgBefore));
+                        
+
+                        ui.newPanel.find('div.outer').append (_div);
+                        ui.newPanel.find('div.outer').find('div.imgCont').css(
+	                        {
+	                            'width': '2000px', // max
+	                            'height': o.imgHeight,
+	                            'margin-left': '-'+o.imgWidth
+	                        });
+                        
+                        ui.newPanel.find('div.outer').find('div.imgCont img').css(
+                                {
+                                    'width': o.imgWidth, 'height':o.imgHeight
+                                });
+
+                        
+                        var firstImg = ui.newPanel.find('img').first();
+                        var nextImg = $(firstImg).next();
+                        
+                        if (ui.newPanel.find('img').size()>1) {
+                            ui.newPanel.find('div.imgCont')
+                                .animate (
+                                        {'padding-left': ui.newPanel.find('img').first().width()+'px'}
+                                        , 1000
+                                        , function() {
+                                        	        
+                                        }
+                                );
+                        } else {
+                            ui.newPanel.find('div.imgCont').css({'margin-left':'0px'})
+                        }
+                        
+                    } 
+                }
+            );
+            
+            // load initial image
+            $(_slider).tabs('option', 'active', 1);
+            
+        	 
+        });
+  };
+})(jQuery);
+
+
+$(document).ready(function() {
+   	$('div.mulderTabSlider').mulderTabSlider( {
+           imgWidth : '250px',
+           imgHeight: '250px'
+       });
+   
+
+
+});
+
+</script>
+ 
+    
+</html>
