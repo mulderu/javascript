@@ -1,0 +1,19 @@
+.rounded-corners (@radius: 10px, @bg-color: #eee, @pad: 10px) {
+ background: @bg-color;
+ padding: @pad;
+ border-radius: @radius;
+ -webkit-border-radius: @radius;
+ -moz-border-radius: @radius;
+}
+
+h3 {
+ .rounded-corners;
+}
+
+p {
+ .rounded-corners(20px, #999, 30px);
+}
+
+p > div {
+ .rounded-corners(20px+5, #999, 30px-20);
+}

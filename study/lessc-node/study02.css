@@ -1,0 +1,20 @@
+div.section {
+  width: 500px;
+  margin: 0 auto;
+  border: solid 1px #999;
+  padding: 1px;
+}
+div.section h3 {
+  background: #999;
+  font-size: 131%;
+  padding: 10px;
+}
+div.section h3 a {
+  color: #fff;
+}
+div.section h3 a:hover {
+  color: #eee;
+}
+div.section p {
+  padding: 10px;
+}

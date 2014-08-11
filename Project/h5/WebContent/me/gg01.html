@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Title of the document</title>
+
+<link rel="stylesheet" href="../resources/jquery-ui-1.11.0/jquery-ui.min.css"/>
+<script src="../resources/jquery-ui-1.11.0/external/jquery/jquery.js"></script>
+<script src="../resources/jquery-ui-1.11.0/jquery-ui.js"></script>
+
+<!-- http://spinejs.com/docs/started_js -->
+<script src="../resources/spine/lib/spine.js"></script>
+
+<!-- Optional Spine extensions -->
+<script src="../resources/spine/lib/local.js"></script>
+<script src="../resources/spine/lib/routes.js"></script>
+
+<script>
+
+var gx = {};
+
+bWindow = function(targetId) {
+	 
+    
+    this.canvas = document.getElementById(targetId);;
+    this.X = $(targetId);
+    
+    this.width = $(this.X).width(); // this.canvas.width;
+    this.height = $(this.X).height();
+    
+    console.log ([this.width, this.height])
+    
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    this.context = this.canvas.getContext('2d');
+    
+    
+    this.clear = function() {
+    	this.context.beginPath();
+    	this.context.rect(0,0, this.width, this.height);
+        this.context.fillStyle = 'gray';
+        this.context.fill();
+        this.context.strokeStyle = 'gray';
+        this.context.stroke(); 
+    }
+    
+    this.drawRect = function(x1,y1, x2,y2) {
+    	this.context.beginPath();
+    	this.context.rect(x1,y1, x2,y2);
+        this.context.fillStyle = 'yellow';
+        this.context.fill();
+        this.context.lineWidth = 7;
+        this.context.strokeStyle = 'black';
+        this.context.stroke(); 
+    }
+    
+    this.drawCircle = function(centerX, centerY, radius) {
+    	this.context.beginPath();
+    	this.context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        this.context.fillStyle = 'green';
+        this.context.fill();
+        this.context.lineWidth = 5;
+        this.context.strokeStyle = '#003300';
+        this.context.stroke();
+    }
+    
+    this.getArcEnd  = function(val) {
+    	var v = 0.75 +  (0.015 * val);
+    	return v >= 2 ? v-2 : v;
+    }
+}
+
+
+baseCanvas = function(cid, targetId) {
+	// animation Values
+	this.timeIdx = 1;
+	this.aniStep = 0;
+	this.timerHandle = null;
+	this.jsonVal = {};
+	// -/ani
+	
+	this.cid = cid;
+
+    this.prototype
+}
+
+baseAction = function(cvs) {
+	this.Cvs = cvs;
+	this.idx = 0;
+	
+	
+	this.run = function() {
+		var x = (this.idx * 2);
+		//var y = 100 + parseInt(this.idx);
+		var y = 100 ;
+		
+		//this.Cvs.canvas.clearRect (0, 0, 900, 300);
+		this.Cvs.drawRect (x,y, x+20, y+20);
+		this.Cvs.drawCircle (x+50,y+50, 25);
+		
+		//console.log ([x,y])
+		
+		this.idx += 2;
+		if (x+50 > 900) this.idx = 1;
+	}
+	
+	this.Action = function() {
+		this.Cvs.clear();
+		this.run();
+		if(this.idx<20) setTimeout (function() { gx['g'].Action(); }, 30);
+	}
+}
+
+
+
+pageLoaded = function() {
+	gx['g'] = new baseAction(new baseCanvas(1, 'testId'));
+	gx['g'].Action();
+}
+
+$(document).ready(function() { pageLoaded(); });
+</script>
+</head>
+
+<body>
+
+<canvas id="testId" width="100%" height="300" style="background-color: gray;">
+
+</canvas>
+
+ 
+</body>
+
+</html>
+
+
+ 
