@@ -10,9 +10,151 @@
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<style>
+	
+/** referenced by http://odyniec.net/articles/turning-lists-into-trees/ */
+
+ul.tree, ul.tree ul {
+     list-style-type: none;
+     background: url(img/vline.png) repeat-y;
+     margin: 0;
+     padding: 0;
+   }
+   
+   ul.tree ul {
+     margin-left: 10px;
+   }
+
+   ul.tree li {
+     margin: 0;
+     padding: 0 12px;
+     line-height: 20px;
+     background: url(img/node.png) no-repeat;
+     color: #369;
+     font-weight: bold;
+   }
+
+ul.tree li.active { color: #33C; }
+
+   ul.tree li.last {
+     background: #fff url(img/lastnode.png) no-repeat;
+   }
+  
+.container .row .col-xs-3 { border: 1px solid red; }  	
+</style>
+	
   
 </head>
 <body>
 
+<div class="containter">
+	<div class="row">
+		<div class="col-xs-3">
+
+<div class="example">
+   <ul id="tree1" class="tree">
+    <li>Animals
+     <ul>
+      <li>Birds</li>
+      <li>Mammals
+       <ul>
+        <li>Elephant</li>
+        <li class="last">Mouse</li>
+       </ul>
+      </li>
+      <li class="last">Reptiles</li>
+     </ul>
+    </li>
+    <li class="last">Plants
+     <ul>
+      <li>Flowers
+       <ul>
+        <li>Rose</li>
+        <li class="last">Tulip</li>
+       </ul>
+      </li>
+      <li class="last">Trees</li>
+     </ul>
+    </li>
+   </ul>
+
+		
+		</div> <!-- /.col -->
+		
+		<div class="col-xs-3">
+			
+<div class="example">
+   <ul id="tree2" class="tree">
+    <li>Animals
+     <ul>
+      <li>Birds</li>
+      <li>Mammals
+       <ul>
+        <li>Elephant</li>
+        <li class="last">Mouse</li>
+       </ul>
+      </li>
+      <li class="last">Reptiles</li>
+     </ul>
+    </li>
+    <li class="last">Plants
+     <ul>
+      <li>Flowers
+       <ul>
+        <li>Rose</li>
+        <li class="last">Tulip</li>
+       </ul>
+      </li>
+      <li class="last">Trees</li>
+     </ul>
+    </li>
+   </ul>
+
+		
+		</div><!-- /.col -->
+	</div> <!-- /.row -->
+</div> <!-- /.container -->
+			
+	
+       
+
 </body>
 </html>
+
+<script>
+	
+$(document).ready(function() {
+    var treeMan = {cur: null, act:'', selectLi: null};
+    
+    $('ul#tree1').data('M', $.extend({}, treeMan));
+    $('ul#tree2').data('M', $.extend({}, treeMan));
+    
+    $('ul.tree li').each(function() {
+        if($(this).children().length>0) $(this).css('cursor', 'pointer');
+        else $(this).css('cursor', 'default');
+    });
+    
+    $('ul.tree li').on('click', function(event) {
+         var M = $('ul.tree').data('M');
+        
+         event.stopPropagation();
+         event.preventDefault();
+        
+         if (M.selectLi != null) {
+             M.selectLi.removeClass('active');
+         }
+         M.cur = $(this).children('ul').first();
+         M.cur.toggle();  
+         
+         M.act = (M.cur.css('display') == 'block') ? 'show' : 'hide';
+         M.selectLi = $(this); 
+         M.selectLi.addClass('active'); 
+        
+         //console.log (M);
+     });
+});
+
+	
+</script>
+	
