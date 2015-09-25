@@ -34,6 +34,16 @@ ul.tree, ul.tree ul {
      color: #369;
      font-weight: bold;
    }
+   
+   ul.tree li.closed {
+     margin: 0;
+     padding: 0 12px;
+     line-height: 20px;
+     background: url(img/folder.png) no-repeat; /* + line */
+     color: #369;
+     font-weight: bold;
+   }
+   
 
 ul.tree li.active { color: #33C; }
 
@@ -86,27 +96,27 @@ div.testBtn { margin: 0 auto; padding: 5px; }
                 </div>
                 
                 <ul id="tree1" class="tree">
-                    <li>Animals
+                    <li><span>Animals</span>
                     <ul>
-                    <li>Birds</li>
-                    <li>Mammals
+                    <li><span>Birds</span></li>
+                    <li><span>Mammals</span>
                     <ul>
-                        <li>Elephant</li>
-                        <li class="last">Mouse</li>
+                        <li><span>Elephant</span></li>
+                        <li class="last"><span>Mouse</span></li>
                     </ul>
                     </li>
-                    <li class="last">Reptiles</li>
+                    <li class="last"><span>Reptiles</span></li>
                     </ul>
                     </li>
-                    <li class="last">Plants
+                    <li class="last"><span>Plants</span>
                     <ul>
-                    <li>Flowers
+                    <li><span>Flowers</span>
                     <ul>
-                        <li>Rose</li>
-                        <li class="last">Tulip</li>
+                        <li><span>Rose</span></li>
+                        <li class="last"><span>Tulip</span></li>
                     </ul>
                     </li>
-                    <li class="last">Trees</li>
+                    <li class="last"><span>Trees</span></li>
                     </ul>
                     </li>
                 </ul>
@@ -124,27 +134,27 @@ div.testBtn { margin: 0 auto; padding: 5px; }
                 </div>
                 
                 <ul id="tree2" class="tree">
-                    <li>Animals
+                    <li><span>Animals</span>
                     <ul>
-                    <li>Birds</li>
-                    <li>Mammals
+                    <li><span>Birds</span></li>
+                    <li><span>Mammals</span>
                     <ul>
-                        <li>Elephant</li>
-                        <li class="last">Mouse</li>
+                        <li><span>Elephant</span></li>
+                        <li class="last"><span>Mouse</span></li>
                     </ul>
                     </li>
-                    <li class="last">Reptiles</li>
+                    <li class="last"><span>Reptiles</span></li>
                     </ul>
                     </li>
-                    <li class="last">Plants
+                    <li class="last"><span>Plants</span>
                     <ul>
-                    <li>Flowers
+                    <li><span>Flowers</span>
                     <ul>
-                        <li>Rose</li>
-                        <li class="last">Tulip</li>
+                        <li><span>Rose</span></li>
+                        <li class="last"><span>Tulip</span></li>
                     </ul>
                     </li>
-                    <li class="last">Trees</li>
+                    <li class="last"><span>Trees</span></li>
                     </ul>
                     </li>
                 </ul>
@@ -169,14 +179,15 @@ function WTREE() {
     $('ul#tree2').data('M', $.extend({}, treeMan));
     
     $('ul.tree li').each(function() {
-        if($(this).children().length>0) $(this).css('cursor', 'pointer');
-        else $(this).css('cursor', 'default');
+        if ($(this).parents('li').size()>0 && $(this).find('li').length>0) {
+            
+        } 
     });
     
     $('ul.tree').on('click', function(event) {
         // console.log (event, event.target.nodeName.toLowerCase() == 'li');
-        if (event.target.nodeName.toLowerCase() == 'li') {
-            var thisLI = event.target;
+        if (event.target.nodeName.toLowerCase() == 'span') {
+            var thisLI = $(event.target).parent('li');
             //var M = $('ul.tree').data('M');
             var M = $(this).data('M');
             
@@ -192,6 +203,12 @@ function WTREE() {
             M.act = (M.cur.css('display') == 'block') ? 'show' : 'hide';
             M.selectLi = $(thisLI); 
             M.selectLi.addClass('active');    
+            
+            if ($(M.selectLi).find('li').length>0) {
+                if (M.act == 'show') $(M.selectLi).removeClass('closed');
+                else $(M.selectLi).addClass('closed');
+            } 
+        
         }
          //console.log (M);
      });
@@ -199,6 +216,10 @@ function WTREE() {
      
 } 
 
+//
+// 현재 tree1 만 작업중.
+// 나중에  plugin으로 업데이트 할 예정.
+//
 var action = {
     delete: function() {
         console.log ('delete');
@@ -238,14 +259,14 @@ var action = {
         if (makeChildren) {
             var p = $(node).find('ul');
             if(p.size() == 0) {
-                var ul = $('<ul><li class="last">New Node '+(nodeNewCnt++)+'</li></ul>');
+                var ul = $('<ul><li class="last"><span>New Node '+(nodeNewCnt++)+'</span></li></ul>');
                 $(node).append(ul);
             } else {
                 p.find('li').removeClass('last'); 
-                p.append('<li class="last">New Node '+(nodeNewCnt++)+'</li>');
+                p.append('<li class="last"><span>New Node '+(nodeNewCnt++)+'</span></li>');
             }    
         } else {
-            var li = $('<li>New Node '+(nodeNewCnt++)+'</li>');
+            var li = $('<li><span>New Node '+(nodeNewCnt++)+'</span></li>');
             var p = $(node).parents('ul');
             p.find('>li').removeClass('last'); 
             
@@ -257,6 +278,13 @@ var action = {
     },
     rename: function() {
         console.log ('rename');
+        var M = $('ul#tree1').data('M');
+        if (M.selectLi==null) return;
+        var node = M.selectLi;
+         
+        
+        node.find('span').first().html ('Update Node '+(nodeNewCnt++));
+        
     },
     info: function() {
         console.log ('info');
