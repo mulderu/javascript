@@ -17,7 +17,7 @@
 
 ul.tree, ul.tree ul {
      list-style-type: none;
-     background: url(img/vline.png) repeat-y;
+     background: url(img/vline.png) repeat-y; /* vertical line */
      margin: 0;
      padding: 0;
    }
@@ -30,7 +30,7 @@ ul.tree, ul.tree ul {
      margin: 0;
      padding: 0 12px;
      line-height: 20px;
-     background: url(img/node.png) no-repeat;
+     background: url(img/node.png) no-repeat; /* ㅏ line */
      color: #369;
      font-weight: bold;
    }
@@ -38,79 +38,117 @@ ul.tree, ul.tree ul {
 ul.tree li.active { color: #33C; }
 
    ul.tree li.last {
-     background: #fff url(img/lastnode.png) no-repeat;
+     background: #fff url(img/lastnode.png) no-repeat; /* L line */
    }
-  
-.container .row .col-xs-3 { border: 1px solid red; }  	
+
+
+div.header > div { text-align: center; background-color: #bbb; font-weight: bold; }  
+div.testBtn { margin: 0 auto; padding: 5px; }  	
 </style>
 	
   
 </head>
 <body>
+    
+    
+<div class="containter">
+	<div class="row header">
+		<div class="col-xs-3">
+            wTree Example
+        </div>
+        <div class="col-xs-3">
+            111
+        </div>
+		<div class="col-xs-3">
+          222
+        </div>
+    </div>    
+</div>
 
 <div class="containter">
 	<div class="row">
+        <div class="col-xs-3">
+            
+            <div class="testBtn"> <button type="button" class="btn btn-default">delete</button> </div>
+            <div class="testBtn"> <button type="button" class="btn btn-primary">add</button> 
+            <input type="checkbox" id="toChildren"> to Children
+            </div>
+            <div class="testBtn"> <button type="button" class="btn btn-success">rename</button> </div>
+            <div class="testBtn"> <button type="button" class="btn btn-info">info</button> </div>
+            
+        </div>
 		<div class="col-xs-3">
 
-<div class="example">
-   <ul id="tree1" class="tree">
-    <li>Animals
-     <ul>
-      <li>Birds</li>
-      <li>Mammals
-       <ul>
-        <li>Elephant</li>
-        <li class="last">Mouse</li>
-       </ul>
-      </li>
-      <li class="last">Reptiles</li>
-     </ul>
-    </li>
-    <li class="last">Plants
-     <ul>
-      <li>Flowers
-       <ul>
-        <li>Rose</li>
-        <li class="last">Tulip</li>
-       </ul>
-      </li>
-      <li class="last">Trees</li>
-     </ul>
-    </li>
-   </ul>
-
+            <div class="example">
+            
+                <div class="result" id="result1">
+                    
+                </div>
+                
+                <ul id="tree1" class="tree">
+                    <li>Animals
+                    <ul>
+                    <li>Birds</li>
+                    <li>Mammals
+                    <ul>
+                        <li>Elephant</li>
+                        <li class="last">Mouse</li>
+                    </ul>
+                    </li>
+                    <li class="last">Reptiles</li>
+                    </ul>
+                    </li>
+                    <li class="last">Plants
+                    <ul>
+                    <li>Flowers
+                    <ul>
+                        <li>Rose</li>
+                        <li class="last">Tulip</li>
+                    </ul>
+                    </li>
+                    <li class="last">Trees</li>
+                    </ul>
+                    </li>
+                </ul>
+            </div> <!-- /.example -->
 		
 		</div> <!-- /.col -->
 		
 		<div class="col-xs-3">
-			
-<div class="example">
-   <ul id="tree2" class="tree">
-    <li>Animals
-     <ul>
-      <li>Birds</li>
-      <li>Mammals
-       <ul>
-        <li>Elephant</li>
-        <li class="last">Mouse</li>
-       </ul>
-      </li>
-      <li class="last">Reptiles</li>
-     </ul>
-    </li>
-    <li class="last">Plants
-     <ul>
-      <li>Flowers
-       <ul>
-        <li>Rose</li>
-        <li class="last">Tulip</li>
-       </ul>
-      </li>
-      <li class="last">Trees</li>
-     </ul>
-    </li>
-   </ul>
-
+                        
+            <div class="example">
+                
+                
+                <div class="result" id="result2">
+                    
+                </div>
+                
+                <ul id="tree2" class="tree">
+                    <li>Animals
+                    <ul>
+                    <li>Birds</li>
+                    <li>Mammals
+                    <ul>
+                        <li>Elephant</li>
+                        <li class="last">Mouse</li>
+                    </ul>
+                    </li>
+                    <li class="last">Reptiles</li>
+                    </ul>
+                    </li>
+                    <li class="last">Plants
+                    <ul>
+                    <li>Flowers
+                    <ul>
+                        <li>Rose</li>
+                        <li class="last">Tulip</li>
+                    </ul>
+                    </li>
+                    <li class="last">Trees</li>
+                    </ul>
+                    </li>
+                </ul>
+            </div> <!-- /.example -->
 		
 		</div><!-- /.col -->
 	</div> <!-- /.row -->
@@ -123,8 +161,8 @@ ul.tree li.active { color: #33C; }
 </html>
 
 <script>
-	
-$(document).ready(function() {
+var nodeNewCnt = 1;
+function WTREE() {
     var treeMan = {cur: null, act:'', selectLi: null};
     
     $('ul#tree1').data('M', $.extend({}, treeMan));
@@ -135,24 +173,109 @@ $(document).ready(function() {
         else $(this).css('cursor', 'default');
     });
     
-    $('ul.tree li').on('click', function(event) {
-         var M = $('ul.tree').data('M');
-        
-         event.stopPropagation();
-         event.preventDefault();
-        
-         if (M.selectLi != null) {
-             M.selectLi.removeClass('active');
-         }
-         M.cur = $(this).children('ul').first();
-         M.cur.toggle();  
-         
-         M.act = (M.cur.css('display') == 'block') ? 'show' : 'hide';
-         M.selectLi = $(this); 
-         M.selectLi.addClass('active'); 
-        
+    $('ul.tree').on('click', function(event) {
+        // console.log (event, event.target.nodeName.toLowerCase() == 'li');
+        if (event.target.nodeName.toLowerCase() == 'li') {
+            var thisLI = event.target;
+            //var M = $('ul.tree').data('M');
+            var M = $(this).data('M');
+            
+            event.stopPropagation();
+            event.preventDefault();
+            
+            if (M.selectLi != null) {
+                M.selectLi.removeClass('active');
+            }
+            M.cur = $(thisLI).children('ul').first();
+            M.cur.toggle();  
+            
+            M.act = (M.cur.css('display') == 'block') ? 'show' : 'hide';
+            M.selectLi = $(thisLI); 
+            M.selectLi.addClass('active');    
+        }
          //console.log (M);
      });
+     
+     
+} 
+
+var action = {
+    delete: function() {
+        console.log ('delete');
+        var M = $('ul#tree1').data('M');
+        if(M.selectLi==null) return;
+        var node = M.selectLi;
+        var prev = $(node).prev();
+        var next = $(node).next();
+        var part = $(node).parent('ul'); // parents ul
+        var pali = $(part).parent('li'); // parents li
+        var chidrens = $(node).find('li');
+        
+        if ($(node).find('ul').size() == 0) {
+            $(node).remove();
+            $(part).find('li:last').addClass('last');    
+        } else { 
+            console.log (chidrens); 
+            $(node).remove();
+        } 
+         
+        if ($(part).find('li').size() == 0) {
+            if ($(pali).size() == 1) { $(pali).addClass('active'); M.selectLi = $(pali); }
+            else M.selectLi = null; 
+            $(part).remove(); // ul
+        } else {
+            if ($(next).size() == 0)      { $(prev).addClass('active'); M.selectLi = $(prev); }
+            else if ($(next).size() == 1) { $(next).addClass('active'); M.selectLi = $(next); }    
+        }                
+        
+    },
+    add: function() {
+        var M = $('ul#tree1').data('M');
+        var makeChildren = $('input#toChildren').prop('checked');
+        console.log ('add',  makeChildren, M);
+        var node = M.selectLi==null ? $('ul#tree1 li').last() : M.selectLi;
+        
+        if (makeChildren) {
+            var p = $(node).find('ul');
+            if(p.size() == 0) {
+                var ul = $('<ul><li class="last">New Node '+(nodeNewCnt++)+'</li></ul>');
+                $(node).append(ul);
+            } else {
+                p.find('li').removeClass('last'); 
+                p.append('<li class="last">New Node '+(nodeNewCnt++)+'</li>');
+            }    
+        } else {
+            var li = $('<li>New Node '+(nodeNewCnt++)+'</li>');
+            var p = $(node).parents('ul');
+            p.find('>li').removeClass('last'); 
+            
+            $(node).after (li);
+            p.find('>li:last').addClass('last');  
+        } 
+        
+         
+    },
+    rename: function() {
+        console.log ('rename');
+    },
+    info: function() {
+        console.log ('info');
+    },
+      
+};
+
+function BTN() {
+    $('.testBtn > button').on('click', function() {
+        var act = $(this).text();
+        
+        action[act](); 
+    });
+}
+ 
+$(document).ready(function() {
+    WTREE();
+    BTN();
+        
 });
 
 	
