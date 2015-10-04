@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+wtree jquery plugin-version
+jquery plugin template inspired from : https://github.com/geetarista/jquery-plugin-template/blob/master/jquery.plugin-template.js
+-->
+<meta charset="utf-8">
+<title>wTree Example</title>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="./js/jquery.plugin-template.js"></script>
+
+<style>
+	
+/** referenced by http://odyniec.net/articles/turning-lists-into-trees/ */
+
+ul.tree, ul.tree ul {
+     list-style-type: none;
+     background: url(img/vline.png) repeat-y; /* vertical line */
+     margin: 0;
+     padding: 0;
+   }
+   
+   ul.tree ul {
+     margin-left: 10px;
+   }
+
+   ul.tree li {
+     margin: 0;
+     padding: 0 12px;
+     line-height: 20px;
+     background: url(img/node.png) no-repeat; /* ㅏ line */
+     color: #369;
+     font-weight: bold;
+   }
+   
+   ul.tree li.closed {
+     margin: 0;
+     padding: 0 12px;
+     line-height: 20px;
+     background: url(img/folder.png) no-repeat; /* + line */
+     color: #369;
+     font-weight: bold;
+   }
+   
+
+ul.tree li.active { color: #33C; }
+
+   ul.tree li.last {
+     background: #fff url(img/lastnode.png) no-repeat; /* L line */
+   }
+
+
+div.header > div { text-align: center; background-color: #bbb; font-weight: bold; }  
+div.testBtn { margin: 0 auto; padding: 5px; }  	
+</style>
+	
+  
+</head>
+<body>
+    
+    
+<div class="containter">
+	<div class="row header">
+		<div class="col-xs-3">
+            wTree Example
+        </div>
+        <div class="col-xs-3">
+            111
+        </div>
+		<div class="col-xs-3">
+          222
+        </div>
+    </div>    
+</div>
+
+<div class="containter">
+	<div class="row">
+        <div class="col-xs-3">
+            
+            <div class="testBtn"> <button type="button" class="btn btn-default">delete</button> </div>
+            <div class="testBtn"> <button type="button" class="btn btn-primary">add</button> 
+            <input type="checkbox" id="toChildren"> to Children
+            </div>
+            <div class="testBtn"> <button type="button" class="btn btn-success">rename</button> </div>
+            <div class="testBtn"> <button type="button" class="btn btn-info">info</button> </div>
+            
+        </div>
+		<div class="col-xs-3">
+
+            <div class="example">
+            
+                <div class="result" id="result1">
+                    
+                </div>
+                
+                <ul id="tree1" class="tree">
+                    <li><span>Animals</span>
+                    <ul>
+                    <li><span>Birds</span></li>
+                    <li><span>Mammals</span>
+                    <ul>
+                        <li><span>Elephant</span></li>
+                        <li class="last"><span>Mouse</span></li>
+                    </ul>
+                    </li>
+                    <li class="last"><span>Reptiles</span></li>
+                    </ul>
+                    </li>
+                    <li class="last"><span>Plants</span>
+                    <ul>
+                    <li><span>Flowers</span>
+                    <ul>
+                        <li><span>Rose</span></li>
+                        <li class="last"><span>Tulip</span></li>
+                    </ul>
+                    </li>
+                    <li class="last"><span>Trees</span></li>
+                    </ul>
+                    </li>
+                </ul>
+            </div> <!-- /.example -->
+		
+		</div> <!-- /.col -->
+		
+		<div class="col-xs-3">
+                        
+            <div class="example">
+                
+                
+                <div class="result" id="result2">
+                    
+                </div>
+                
+                <ul id="tree2" class="tree">
+                    <li><span>Animals</span>
+                    <ul>
+                    <li><span>Birds</span></li>
+                    <li><span>Mammals</span>
+                    <ul>
+                        <li><span>Elephant</span></li>
+                        <li class="last"><span>Mouse</span></li>
+                    </ul>
+                    </li>
+                    <li class="last"><span>Reptiles</span></li>
+                    </ul>
+                    </li>
+                    <li class="last"><span>Plants</span>
+                    <ul>
+                    <li><span>Flowers</span>
+                    <ul>
+                        <li><span>Rose</span></li>
+                        <li class="last"><span>Tulip</span></li>
+                    </ul>
+                    </li>
+                    <li class="last"><span>Trees</span></li>
+                    </ul>
+                    </li>
+                </ul>
+            </div> <!-- /.example -->
+		
+		</div><!-- /.col -->
+	</div> <!-- /.row -->
+</div> <!-- /.container -->
+			
+	
+       
+
+</body>
+</html>
+
+<script>
+var nodeNewCnt = 1;
+function WTREE() {
+    var treeMan = {cur: null, act:'', selectLi: null};
+    
+    $('ul#tree1').data('M', $.extend({}, treeMan));
+    $('ul#tree2').data('M', $.extend({}, treeMan));
+    
+    $('ul.tree li').each(function() {
+        if ($(this).parents('li').size()>0 && $(this).find('li').length>0) {
+            
+        } 
+    });
+    
+    $('ul.tree').on('click', function(event) {
+        // console.log (event, event.target.nodeName.toLowerCase() == 'li');
+        if (event.target.nodeName.toLowerCase() == 'span') {
+            var thisLI = $(event.target).parent('li');
+            //var M = $('ul.tree').data('M');
+            var M = $(this).data('M');
+            
+            event.stopPropagation();
+            event.preventDefault();
+            
+            if (M.selectLi != null) {
+                M.selectLi.removeClass('active');
+            }
+            M.cur = $(thisLI).children('ul').first();
+            M.cur.toggle();  
+            
+            M.act = (M.cur.css('display') == 'block') ? 'show' : 'hide';
+            M.selectLi = $(thisLI); 
+            M.selectLi.addClass('active');    
+            
+            if ($(M.selectLi).find('li').length>0) {
+                if (M.act == 'show') $(M.selectLi).removeClass('closed');
+                else $(M.selectLi).addClass('closed');
+            } 
+        
+        }
+         //console.log (M);
+     });
+     
+     
+} 
+
+//
+// 현재 tree1 만 작업중.
+// 나중에  plugin으로 업데이트 할 예정.
+//
+var action = {
+    delete: function() {
+        console.log ('delete');
+        var M = $('ul#tree1').data('M');
+        if(M.selectLi==null) return;
+        var node = M.selectLi;
+        var prev = $(node).prev();
+        var next = $(node).next();
+        var part = $(node).parent('ul'); // parents ul
+        var pali = $(part).parent('li'); // parents li
+        var chidrens = $(node).find('li');
+        
+        if ($(node).find('ul').size() == 0) {
+            $(node).remove();
+            $(part).find('li:last').addClass('last');    
+        } else { 
+            console.log (chidrens); 
+            $(node).remove();
+        } 
+         
+        if ($(part).find('li').size() == 0) {
+            if ($(pali).size() == 1) { $(pali).addClass('active'); M.selectLi = $(pali); }
+            else M.selectLi = null; 
+            $(part).remove(); // ul
+        } else {
+            if ($(next).size() == 0)      { $(prev).addClass('active'); M.selectLi = $(prev); }
+            else if ($(next).size() == 1) { $(next).addClass('active'); M.selectLi = $(next); }    
+        }                
+        
+    },
+    add: function() {
+        var M = $('ul#tree1').data('M');
+        var makeChildren = $('input#toChildren').prop('checked');
+        console.log ('add',  makeChildren, M);
+        var node = M.selectLi==null ? $('ul#tree1 li').last() : M.selectLi;
+        
+        if (makeChildren) {
+            var p = $(node).find('ul');
+            if(p.size() == 0) {
+                var ul = $('<ul><li class="last"><span>New Node '+(nodeNewCnt++)+'</span></li></ul>');
+                $(node).append(ul);
+            } else {
+                p.find('li').removeClass('last'); 
+                p.append('<li class="last"><span>New Node '+(nodeNewCnt++)+'</span></li>');
+            }    
+        } else {
+            var li = $('<li><span>New Node '+(nodeNewCnt++)+'</span></li>');
+            var p = $(node).parents('ul');
+            p.find('>li').removeClass('last'); 
+            
+            $(node).after (li);
+            p.find('>li:last').addClass('last');  
+        } 
+        
+         
+    },
+    rename: function() {
+        console.log ('rename');
+        var M = $('ul#tree1').data('M');
+        if (M.selectLi==null) return;
+        var node = M.selectLi;
+         
+        
+        node.find('span').first().html ('Update Node '+(nodeNewCnt++));
+        
+    },
+    info: function() {
+        console.log ('info');
+    },
+      
+};
+
+function BTN() {
+    $('.testBtn > button').on('click', function() {
+        var act = $(this).text();
+        
+        action[act](); 
+    });
+}
+ 
+$(document).ready(function() {
+    WTREE();
+    BTN();
+        
+});
+
+	
+</script>
+	
