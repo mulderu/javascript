@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<script src="./morris-0.5/morris.min.js"></script> 
+
+
+<link rel="stylesheet" href="morris-0.5/morris.css">
+
+
+<meta charset=utf-8 />
+<title>Morris.js Donut Chart Example</title>
+</head>
+<body>
+  <div id="donut-example"></div>
+</body>
+</html>
+
+<script>
+    
+(function($) {
+    
+/*
+ * Play with this code and it'll update in the panel opposite.
+ *
+ * Why not try some of the options above?
+ */
+Morris.Donut({
+  element: 'donut-example',
+  data: [
+    {label: "기본상담1", value: 12},
+    {label: "카드해지", value: 30},
+    {label: "카드발행", value: 20}
+  ]
+});
+
+
+    
+})(jQuery);
+    
+    
+</script>    

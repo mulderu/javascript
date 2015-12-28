@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="./morris-0.5/morris.min.js"></script>
+
+<link rel="stylesheet" href="morris-0.5/morris.css">
+
+ 
+<meta charset=utf-8 />
+<title>chart js test index</title>
+
+    <style>
+    
+    
+    </style>
+    
+</head>
+<body>
+  <ul class="nav nav-tabs">
+      <li><a  href="file:///Users/mulder/Project/githubs/javascript/chart-demo/raphael-demo01.html" target="chart_area">rp table</a></li>
+      <li><a  href="file:///Users/mulder/Project/githubs/javascript/chart-demo/raphael-demo02.html" target="chart_area">rp line area</a></li>
+      <li><a  href="file:///Users/mulder/Project/githubs/javascript/chart-demo/raphael-demo03.html" target="chart_area">rp pie</a></li>
+      <li><a  href="morris-bar01.html"   target="chart_area">mr bar 01</a></li>
+      <li><a  href="morris-bar02.html"   target="chart_area">mr bar 02</a></li>
+      <li><a  href="morris-donut01.html" target="chart_area">mr donut</a></li>
+      <li><a  href="morris-line01.html"  target="chart_area">mr line</a></li>
+  </ul>
+  
+  <!--
+  
+   <ul class="nav nav-tabs">
+      <li><a  data-toggle="tab" href="raphael-demo01.html" data-target="chart_area">rp table</a></li>
+      <li><a  data-toggle="tab" href="raphael-demo02.html" data-target="chart_area">rp line area</a></li>
+      <li><a  data-toggle="tab" href="morris-bar01.html"   data-target="chart_area">mr bar 01</a></li>
+      <li><a  data-toggle="tab" href="morris-bar02.html"   data-target="chart_area">mr bar 02</a></li>
+      <li><a  data-toggle="tab" href="morris-donut01.html" data-target="chart_area">mr donut</a></li>
+      <li><a  data-toggle="tab" href="morris-line01.html"  data-target="chart_area">mr line</a></li>
+  </ul>
+<div class="tab-content">
+  <div id="t_1" class="tab-pane fade in active">
+      <div id="chart_1"></div>
+  </div>
+  <div id="t_2" class="tab-pane fade">
+     <div id="chart_2"></div>
+  </div>
+  <div id="t_3" class="tab-pane fade">
+     <div id="chart_3"></div>
+  </div>
+  <div id="t_4" class="tab-pane fade">
+     <div id="chart_4"></div>
+  </div>
+  <div id="t_5" class="tab-pane fade">
+     <div id="chart_5"></div>
+  </div>
+</div>
+
+-->
+
+<div>
+    <iframe name="chart_area" src="about:blank" style="width: 90%; height: 500px; margin:10px;"></iframe>
+    
+    </div>
+    
+
+</body>
+</html>
+
+<script>
+    
+(function($) {
+    var fnc = [
+        null,
+        function() {
+            Morris.Bar({
+                element: 'chart_1',
+                data: [
+                    { y: '2006', a: 100, b: 90 },
+                    { y: '2007', a: 75,  b: 65 },
+                    { y: '2008', a: 50,  b: 40 },
+                    { y: '2009', a: 75,  b: 65 },
+                    { y: '2010', a: 50,  b: 40 },
+                    { y: '2011', a: 75,  b: 65 },
+                    { y: '2012', a: 100, b: 90 }
+                ],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['상담원 A', '상담원 B']
+                });
+
+        },
+        function() {
+            
+            Morris.Bar({
+                element: 'chart_2',
+                data: [
+                {device: 'iPhone', geekbench: 136},
+                {device: 'iPhone 3G', geekbench: 137},
+                {device: 'iPhone 3GS', geekbench: 275},
+                {device: 'iPhone 4', geekbench: 380},
+                {device: 'iPhone 4S', geekbench: 655},
+                {device: 'iPhone 5', geekbench: 1571}
+                ],
+                xkey: 'device',
+                ykeys: ['geekbench'],
+                labels: ['Geekbench'],
+                barRatio: 0.4,
+                xLabelAngle: 35,
+                hideHover: 'auto'
+            });
+            
+        },
+        function() {
+            Morris.Donut({
+                element: 'chart_3',
+                data: [
+                    {label: "기본상담1", value: 12},
+                    {label: "카드해지", value: 30},
+                    {label: "카드발행", value: 20}
+                ]
+                });
+        },
+        function() {
+            Morris.Line({
+                element: 'chart_4',
+                data: [
+                    { y: '2000', a: 55, b: 88 },
+                    { y: '2001', a: 66, b: 40 },
+                    { y: '2007', a: 75,  b: 65 },
+                    { y: '2008', a: 50,  b: 40 },
+                    { y: '2009', a: 75,  b: 65 },
+                    { y: '2010', a: 50,  b: 40 },
+                    { y: '2011', a: 75,  b: 65 },
+                    { y: '2012', a: 100, b: 90 },
+                    { y: '2013', a: 90, b: 40 },
+                    { y: '2014', a: 40, b: 80 },
+                    { y: '2015', a: 70, b: 90 }
+                ],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['상담원 A', '상담원 B']
+                });
+        },
+        function() {
+            
+            
+            
+            
+            
+        },
+        function() {},
+        function() {},
+        function() {}
+    ];
+     
+     $('[data-toggle="tab"]').click(function(e) {
+        var $this = $(this),
+         loadurl = $this.attr('href'),
+         targ = $this.attr('data-target'),
+         idx = parseInt(targ.split('_')[1], 10);
+
+console.log (loadurl, targ, idx);
+
+        
+        // fnc[idx]();
+        
+        
+        //$.get(loadurl, function(data) {
+          //  $(targ).html(data);
+        //});
+        
+        location.href = loadurl;
+    
+        $this.tab('show');
+        return false;
+    });
+
+
+    
+})(jQuery);
+    
+    
+</script>    
