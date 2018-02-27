@@ -1,5 +1,8 @@
 #tsc basic-types.ts
 #node basic-types.js
 
-tsc variable-declarations.ts
-node variable-declarations.js
+#tsc variable-declarations.ts
+#node variable-declarations.js
+#
+tsc handbook-classes.ts
+node handbook-classes.js
