@@ -2,6 +2,11 @@ javascript
 ==========
 simple javascript study project
 
+## rest axios
+
+- https://github.com/mulderu/javascript/blob/master/rest-axios.md
+
+
 image slider
 js OOP 
 etc ...
