@@ -2,6 +2,12 @@ javascript
 ==========
 simple javascript study project
 
+## vuejs vuex
+
+- [https://github.com/mulderu/javascript/blob/master/vuejs-vuex-status-getters.md] : vuex status getters
+- [https://github.com/mulderu/javascript/blob/master/vuejs-vuex-mutations-actions.md] : vuex mutations actions
+
+
 ## rest axios
 
 - https://github.com/mulderu/javascript/blob/master/rest-axios.md
