@@ -2,6 +2,10 @@ javascript
 ==========
 simple javascript study project
 
+## core
+
+- [https://github.com/mulderu/javascript/blob/master/core-js-functions.md]
+
 ## vuejs vuex
 
 - [https://github.com/mulderu/javascript/blob/master/vuejs-vuex-status-getters.md] : vuex status getters
