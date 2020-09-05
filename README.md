@@ -2,6 +2,14 @@ javascript
 ==========
 simple javascript study project
 
+## npm or yarn
+
+```
+npm i -g packagename
+# OR
+yarn global add packagename
+```
+
 ## core
 
 - [https://github.com/mulderu/javascript/blob/master/core-js-functions.md]
